@@ -15,4 +15,4 @@ vim.keymap.del({ "n", "t" }, "<C-_>")
 vim.keymap.set("n", "<C-\\>", lazyterm, { desc = "Terminal (root dir)" })
 vim.keymap.set("t", "<C-\\>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 
-vim.keymap.set("n", "<leader>d", "<cmd>bdelete<cr>", { desc = "Close buffer" })
+vim.keymap.set("n", "<leader>z", "<cmd>bdelete<cr>", { desc = "Close buffer" })

@@ -26,9 +26,15 @@ return {
           ["h"] = function(state)
             local node = state.tree:get_node()
             if node.type == "directory" and node:is_expanded() then
-              require("neo-tree.sources.filesystem").toggle_directory(state, node)
+              require("neo-tree.sources.filesystem").toggle_directory(
+                state,
+                node
+              )
             else
-              require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+              require("neo-tree.ui.renderer").focus_node(
+                state,
+                node:get_parent_id()
+              )
             end
           end,
           ["l"] = "open",
@@ -48,5 +54,18 @@ return {
     dependencies = { "MunifTanjim/nui.nvim" },
     ft = { "json" },
     config = true,
+  },
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-telescope/telescope.nvim",
+      "mfussenegger/nvim-dap-python",
+    },
+    event = "VeryLazy",
+    keys = {
+      { "<leader>vs", "<cmd>VenvSelect<cr>" },
+      { "<leader>vc", "<cmd>VenvSelectCached<cr>" },
+    },
   },
 }
