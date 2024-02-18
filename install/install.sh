@@ -11,9 +11,8 @@ if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
 	exit 1
 fi
 
-if [ ! -f ~/.config ]; then
-	echo "Creating ~/.config"
-	mkdir ~/.config
+if [ ! -d "$HOME/.config" ]; then
+	mkdir "$HOME/.config"
 fi
 
 install_on_fedora() {
@@ -56,29 +55,6 @@ install_package() {
 		return 0
 	fi
 
-	if [ -z "$CURRENT_DISTRO" ]; then
-		OS="$(uname -s)"
-		case "${OS}" in
-		Linux*)
-			if [ -f /etc/fedora-release ]; then
-				CURRENT_DISTRO="fedora"
-			elif [ -f /etc/lsb-release ]; then
-				CURRENT_DISTRO="ubuntu"
-			else
-				echo "Unsupported Linux distribution"
-				exit 1
-			fi
-			;;
-		Darwin*)
-			CURRENT_DISTRO="mac"
-			;;
-		*)
-			echo "Unsupported operating system: ${OS}"
-			exit 1
-			;;
-		esac
-	fi
-
 	if [ "$CURRENT_DISTRO" = "fedora" ]; then
 		install_on_fedora "$1"
 	elif [ "$CURRENT_DISTRO" = "ubuntu" ]; then
@@ -108,7 +84,7 @@ install_neovim() {
 		mv ~/.config/nvim ~/.config/nvim.bak
 	fi
 
-	ln -s ./nvim ~/.config/nvim
+	ln -s ~/.dotfiles/nvim ~/.config/nvim
 }
 
 install_tmux() {
@@ -117,7 +93,7 @@ install_tmux() {
 		echo "Backing up existing .config/tmux"
 		mv ~/.config/tmux ~/.config/tmux.bak
 	fi
-	ln -s ./tmux ~/.config/tmux
+	ln -s ~/.dotfiles/tmux ~/.config/tmux
 }
 
 install_zsh() {
@@ -129,7 +105,7 @@ install_zsh() {
 		echo "Backing up existing .zshrc"
 		mv ~/.zshrc ~/.zshrc.bak
 	fi
-	ln -s ./zsh/.zshrc ~/.zshrc
+	ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
 
 	chsh -s "$(which zsh)"
 }
@@ -146,6 +122,31 @@ confirm() {
 	esac
 }
 
+detect_distro() {
+	OS="$(uname -s)"
+	case "${OS}" in
+	Linux*)
+		if [ -f /etc/fedora-release ]; then
+			CURRENT_DISTRO="fedora"
+		elif [ -f /etc/lsb-release ]; then
+			CURRENT_DISTRO="ubuntu"
+		else
+			echo "Unsupported Linux distribution"
+			exit 1
+		fi
+		;;
+	Darwin*)
+		CURRENT_DISTRO="mac"
+		;;
+	*)
+		echo "Unsupported operating system: ${OS}"
+		exit 1
+		;;
+	esac
+}
+
+detect_distro
+
 if confirm "Do you want to install zsh?"; then
 	install_zsh
 fi
@@ -158,7 +159,7 @@ if confirm "Do you want to install neovim?"; then
 	install_neovim
 fi
 
-if [ $CURRENT_DISTRO == "mac" ]; then
+if [ "$CURRENT_DISTRO" == "mac" ]; then
 	if confirm "Do you want to setup system configuration?"; then
 		./install/macos.sh
 	fi

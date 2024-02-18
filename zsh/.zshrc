@@ -11,7 +11,7 @@ export ZSH_THEME="passion"
 
 # Import secret environment variables
 if [[ -f "$HOME/.secrets/.env" ]]; then
-  source "$HOME/.secrets/.env"
+    source "$HOME/.secrets/.env"
 fi
 
 plugins=(git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions ssh-agent)

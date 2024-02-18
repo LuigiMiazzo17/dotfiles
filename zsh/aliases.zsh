@@ -1,5 +1,4 @@
-
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
     alias wireshark="/Applications/Wireshark.app/Contents/MacOS/Wireshark & disown"
     alias gdb='lima gdb -q'
 
@@ -10,7 +9,7 @@ if [ "$(uname)" == "Darwin" ]; then
             figlet "Minimi's MBP"
         fi
     fi
-done
+fi
 
 alias cdtmp='cd $(mktemp -d /tmp/XXXXXXXXXXX)'
 alias mkdir='mkdir -p'
