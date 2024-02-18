@@ -124,7 +124,7 @@ install_zsh() {
 		echo "Backing up existing .zshrc"
 		mv ~/.zshrc ~/.zshrc.bak
 	fi
-	ln -s ./zsh/.zshrc ~/.config/zsh/.zshrc
+	ln -s ./zsh/.zshrc ~/.zshrc
 
 	chsh -s "$(which zsh)"
 }
@@ -133,10 +133,10 @@ confirm() {
 	read -r -p "$1 [y/N] " response
 	case "$response" in
 	[yY][eE][sS] | [yY])
-		return 1
+		return 0
 		;;
 	*)
-		return 0
+		return 1
 		;;
 	esac
 }
