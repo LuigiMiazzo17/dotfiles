@@ -11,6 +11,11 @@ if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
 	exit 1
 fi
 
+if [ ! -f ~/.config ]; then
+	echo "Creating ~/.config"
+	mkdir ~/.config
+fi
+
 install_on_fedora() {
 	if [ -z "$1" ]; then
 		echo "No package name provided"
@@ -91,7 +96,7 @@ install_neovim() {
 	install_package "neovim ripgrep fd"
 
 	# install nerd-fonts
-	if ! command -v brew &>/dev/null; then
+	if [ $CURRENT_DISTRO == "mac" ]; then
 		brew tap homebrew/cask-fonts
 		brew install --cask font-meslo-lg-nerd-font
 	else
@@ -153,7 +158,7 @@ if confirm "Do you want to install neovim?"; then
 	install_neovim
 fi
 
-if CURRENT_DISTRO="mac"; then
+if [ $CURRENT_DISTRO == "mac" ]; then
 	if confirm "Do you want to setup system configuration?"; then
 		./install/macos.sh
 	fi
