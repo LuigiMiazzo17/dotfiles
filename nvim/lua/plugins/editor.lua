@@ -37,6 +37,23 @@ return {
       },
     },
   },
+  {
+    {
+      "folke/snacks.nvim",
+      priority = 1000,
+      lazy = false,
+      ---@type snacks.Config
+      keys = {
+        {
+          "<c-\\>",
+          function()
+            Snacks.terminal()
+          end,
+          desc = "Toggle Terminal",
+        },
+      },
+    },
+  },
 
   {
     "RaafatTurki/hex.nvim",
