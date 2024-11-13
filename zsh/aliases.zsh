@@ -19,3 +19,7 @@ alias erpitone="python3"
 
 alias venv='python3 -m venv env'
 alias activate='source env/bin/activate'
+
+alias k='kubectl'
+
+alias venv='source .venv/bin/activate'
