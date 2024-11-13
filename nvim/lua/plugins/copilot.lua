@@ -11,17 +11,20 @@ return {
     end,
   },
 
-  { "zbirenbaum/copilot-cmp", enabled = false },
   {
     "zbirenbaum/copilot.lua",
+    enabled = true,
     event = "VeryLazy",
     opts = {
       suggestion = {
         enabled = true,
         auto_trigger = true,
+        keymap = {
+          accept_line = "<M-L>",
+        },
       },
-      panel = {
-        enabled = true,
+      filetypes = {
+        ["*"] = true,
       },
     },
   },
