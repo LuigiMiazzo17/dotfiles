@@ -16,6 +16,8 @@ fi
 
 plugins=(git colored-man-pages zsh-syntax-highlighting zsh-autosuggestions ssh-agent)
 
+zstyle ':omz:alpha:lib:git' async-prompt no
+
 # ssh-agent plugin configuration
 zstyle :omz:plugins:ssh-agent identities id_rsa id_github
 
